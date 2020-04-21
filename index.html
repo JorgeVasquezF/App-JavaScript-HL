@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+
+ 
+      <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous">
+    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+ 
+  </head>
+
+    <body>
+
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item mx-0 mx-lg-1">
+              <b>Glove Selection</b>
+              <select id="selectCombo" >
+              </select>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <button type="submit" onclick="select_Glove()" class="btn btn-primary" name="selectglove" value="Select Glove">Select Glove</button>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <button type="submit" onclick="refreshGloves()" class="btn btn-primary" name="refreshgloves" value="RefreshGloves">Refresh Gloves</button>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <button type="submit" onclick="test_Glove()" class="btn btn-primary" name="selectglove" value="Select Glove">test</button>
+            </li>
+          </ul>
+        </div>
+
+      <img src="https://i.imgur.com/v0bksqp.jpg" alt="Smiley face" width="600" height="800">
+      <button id="button" onclick="test_Glove_thum()" class="btn btn-primary" name="selectglove" value="Select Glove">Pulgar</button>
+      <button id="button1" onclick="test_Glove_index()" class="btn btn-primary" name="selectglove" value="Select Glove">Indice</button>
+      <button id="button2" onclick="test_Glove_middle()" class="btn btn-primary" name="selectglove" value="Select Glove">Medio</button>
+      <button id="button3" onclick="test_Glove_ring()" class="btn btn-primary" name="selectglove" value="Select Glove">Anular</button>
+      <button id="button4" onclick="test_Glove_pinky()" class="btn btn-primary" name="selectglove" value="Select Glove">Meñique</button>
+      <button type="submit" onclick="test_Glove()" class="btn btn-primary" name="selectglove" value="Select Glove">test</button>
+      <div id="id01" class="w3-modal">
+        <div class="w3-modal-content">
+          <div class="w3-container">
+            <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <p>Activando vibración</p>
+
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+            var selectedGlove;
+            var actualGloves;
+            $(document).ready(
+              function(){
+                select = document.getElementById('selectCombo');
+                GetGloves().done(function(gloves){
+                  actualGloves = gloves;
+                 for(var g in gloves){
+                  if(gloves[g].Connected == true){
+                    var opt = document.createElement('option');
+                    opt.value = gloves[g].Port;
+                    opt.innerHTML = gloves[g].Port;
+                    select.appendChild(opt);
+                    console.log(gloves[g]);
+                  }
+
+                 }
+                })
+              }
+            ); 
+            function select_Glove(){
+              var e = document.getElementById("selectCombo");
+              var selGloveName = e.options[e.selectedIndex].text;
+              for(var g in actualGloves){
+               if(actualGloves[g].Port == selGloveName){
+                  selectedGlove = actualGloves[g];
+                  startCaptureData(selectedGlove);
+               }
+             }
+            }; 
+            function test_Glove_pinky(){
+              GetGloves().done(function(gloves){
+                  actualGloves = gloves;
+                for(var g in gloves){
+                  if(gloves[g].Connected == true){
+                    var opt = document.createElement('option');
+                    opt.value = gloves[g].Port;
+                    opt.innerHTML = gloves[g].Port;
+                    select.appendChild(opt);
+                    console.log(gloves[g]);
+                    Activate(gloves[g],0,255)
+                  }
+
+                 }
+                })  
+            }
+            function test_Glove_ring(){
+              GetGloves().done(function(gloves){
+                  actualGloves = gloves;
+                for(var g in gloves){
+                  if(gloves[g].Connected == true){
+                    var opt = document.createElement('option');
+                    opt.value = gloves[g].Port;
+                    opt.innerHTML = gloves[g].Port;
+                    select.appendChild(opt);
+                    console.log(gloves[g]);
+                    Activate(gloves[g],1,255)
+                  }
+
+                 }
+                })  
+            }
+            function test_Glove_middle(){
+              GetGloves().done(function(gloves){
+                  actualGloves = gloves;
+                for(var g in gloves){
+                  if(gloves[g].Connected == true){
+                    var opt = document.createElement('option');
+                    opt.value = gloves[g].Port;
+                    opt.innerHTML = gloves[g].Port;
+                    select.appendChild(opt);
+                    console.log(gloves[g]);
+                    Activate(gloves[g],2,255)
+                  }
+
+                 }
+                })  
+            }
+            function test_Glove_index(){
+              GetGloves().done(function(gloves){
+                  actualGloves = gloves;
+                for(var g in gloves){
+                  if(gloves[g].Connected == true){
+                    var opt = document.createElement('option');
+                    opt.value = gloves[g].Port;
+                    opt.innerHTML = gloves[g].Port;
+                    select.appendChild(opt);
+                    console.log(gloves[g]);
+                    Activate(gloves[g],3,255)
+                  }
+
+                 }
+                })  
+            }
+            function test_Glove_thum(){
+              GetGloves().done(function(gloves){
+                  actualGloves = gloves;
+                for(var g in gloves){
+                  if(gloves[g].Connected == true){
+                    var opt = document.createElement('option');
+                    opt.value = gloves[g].Port;
+                    opt.innerHTML = gloves[g].Port;
+                    select.appendChild(opt);
+                    console.log(gloves[g]);
+                    Activate(gloves[g],25,255)
+                  }
+
+                 }
+                })  
+            }
+            function test_Glove(){
+              GetGloves().done(function(gloves){
+                  actualGloves = gloves;
+                for(var g in gloves){
+                  if(gloves[g].Connected == true){
+                    var opt = document.createElement('option');
+                    opt.value = gloves[g].Port;
+                    opt.innerHTML = gloves[g].Port;
+                    select.appendChild(opt);
+                    console.log(gloves[g]);
+                    Activate(gloves[g],1,255)
+                  }
+
+                 }
+                })  
+            }
+     </script>
+    </body>
+    <script src="js/OpenGloveAPI.js"></script>
+        
+    
+</html>
